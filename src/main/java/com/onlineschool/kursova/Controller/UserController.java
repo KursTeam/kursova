@@ -26,6 +26,7 @@ public class UserController {
 
         return users;
     }
+
     @PostMapping(value = "/createUs")
     public void createEmployee(@RequestBody User emp) {
         employeeService.insertUser(emp);
