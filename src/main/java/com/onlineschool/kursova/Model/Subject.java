@@ -1,10 +1,13 @@
 package com.onlineschool.kursova.Model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * 
  */
+@Entity
+@Table(name="subjects")
 public class Subject {
 
     /**
@@ -16,6 +19,7 @@ public class Subject {
     /**
      * 
      */
+    @Id
     public int sub_id;
 
     /**

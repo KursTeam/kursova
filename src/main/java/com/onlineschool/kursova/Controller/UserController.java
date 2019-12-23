@@ -1,33 +1,51 @@
 package com.onlineschool.kursova.Controller;
 import javax.annotation.Resource;
 
+import com.onlineschool.kursova.Model.Roles;
 import com.onlineschool.kursova.Model.User;
-import com.onlineschool.kursova.Service.UserDaoImpl;
+import com.onlineschool.kursova.Repository.userRepository;
+import com.onlineschool.kursova.Service.RoleDaoImpl;
+//import com.onlineschool.kursova.Service.UserDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-@RestController
+
 @Controller
-@RequestMapping("/admin")
+
 public class UserController {
     public List<User> users;
+    public List<Roles> roles;
     @Autowired
     @Resource
-    UserDaoImpl employeeService;
+    userRepository employeeService;
+   // @Autowired
+   // @Resource
+  //  RoleDaoImpl rolesService;
     @RequestMapping(value = "/Users", method= RequestMethod.GET)
-    public List<User> getEmployees(Model model) {
+    public String Users(Model model) {
 
         users=employeeService.findAll();
-        model.addAttribute("usersGet",users);
+     //   roles=rolesService.findAll();
+        for (User usr:users)
+        {
+         System.out.println(usr.getUser_id()+" "+usr.getUser_name()+" "+usr.getAge()+" "+usr.getRoles().Name);
+        }
+        List<User>selectedusers;
 
-        return users;
+
+        model.addAttribute("users",users);
+
+     //   model.addAttribute("roles",roles);
+        return "Users";
     }
 
-    @PostMapping(value = "/createUs")
+   /* @PostMapping(value = "/createUs")
     public void createEmployee(@RequestBody User emp) {
         employeeService.insertUser(emp);
     }
@@ -42,5 +60,5 @@ public class UserController {
     @DeleteMapping(value = "/deleteUsById")
     public void deleteEmployee(@RequestBody User emp) {
         employeeService.deleteUser(emp);
-    }
+    }*/
 }

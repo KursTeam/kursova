@@ -1,10 +1,13 @@
 package com.onlineschool.kursova.Model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * 
  */
+@Entity
+@Table(name="payments")
 public class Payment {
 
     /**
@@ -56,6 +59,7 @@ public class Payment {
     /**
      * 
      */
+    @Id
     public int pay_id;
 
     /**

@@ -9,11 +9,17 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Role</th>
+        <th>Age</th>
 
     </tr>
-    <tr th:each="usr : ${usersGet}">
-        <td th:text="${usr.getId()}"/>
-        <td th:text="${usr.getName()}"/>
+    <tr th:each="usr : ${users}">
+  
+
+        <td th:text="${usr.getUser_id()}"/>
+        <td th:text="${usr.getUser_name()}"/>
+        <td th:text="${usr.getRoles().Name}"/>
+        <td th:text="${usr.getAge()}"/>
 
     </tr>
 </table>

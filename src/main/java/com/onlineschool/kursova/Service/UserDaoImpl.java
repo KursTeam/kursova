@@ -1,5 +1,6 @@
 package com.onlineschool.kursova.Service;
 
+import com.onlineschool.kursova.Model.Roles;
 import com.onlineschool.kursova.Model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
@@ -11,13 +12,15 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/*
 @Repository
 @Service
 public class UserDaoImpl implements UserDao {
@@ -30,10 +33,13 @@ public class UserDaoImpl implements UserDao {
         @Override
         public List<User> findAll() {
             List<User> users=new ArrayList<User>();
-            users=template.query("select * from users", new UserRowMapper());
+            String query="select user_id,user_name,Age,role_name from users inner join roles on users.role_id==roles.role_id";
+            users=template.query(query, new UserRowMapper());
+           // ResultSet rs=template.executeQuery(query);
+            List<Roles>roles=template.query("select * from roles", new RoleRowMapper());
             for (User i:users
                  ) {
-                System.out.println(i.user_name);
+                System.out.println(i.getUser_id()+" "+i.getUser_name());
             }
             return users;
         }
@@ -45,7 +51,7 @@ public class UserDaoImpl implements UserDao {
                     .addValue("user_id", emp.getUser_id())
                     .addValue("user_name", emp.getUser_name())
 
-                    .addValue("role_id", emp.getRole_id())
+               //     .addValue("role_id", emp.getRole_id())
                     .addValue("Age", emp.getAge())
                     .addValue("password", emp.getPassword());
             template.update(sql,param, holder);
@@ -58,7 +64,7 @@ public class UserDaoImpl implements UserDao {
                     .addValue("user_id", emp.getUser_id())
                     .addValue("user_name", emp.getUser_name())
                     .addValue("password", emp.getPassword())
-                    .addValue("role_id", emp.getRole_id())
+            //        .addValue("role_id", emp.getRole_id())
                     .addValue("Age", emp.getAge());
             template.update(sql,param, holder);
         }
@@ -69,7 +75,7 @@ public class UserDaoImpl implements UserDao {
             map.put("user_id", emp.getUser_id());
             map.put("user_name", emp.getUser_name());
             map.put("password", emp.getPassword());
-            map.put("role_id", emp.getRole_id());
+        //    map.put("role_id", emp.getRole_id());
 
             map.put("Age", emp.getAge());
             template.execute(sql,map,new PreparedStatementCallback<Object>() {
@@ -93,4 +99,4 @@ public class UserDaoImpl implements UserDao {
                 }
             });
         }
-}
+}*/

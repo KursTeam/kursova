@@ -1,8 +1,14 @@
 package com.onlineschool.kursova.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.persistence.Table;
+
 /**
  * 
  */
+@Entity
+@Table(name="groups")
 public class Group {
 
     public int getGroup_id() {
@@ -38,6 +44,7 @@ public class Group {
     /**
      * 
      */
+    @Id
     public int group_id;
 
     /**

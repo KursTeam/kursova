@@ -1,20 +1,18 @@
 package com.onlineschool.kursova.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Table for users from site
  */
+@Table(name="users")
 @Entity
 public class User {
 
     public User(int user_id, String user_name, int role_id, int age,String password) {
         this.user_id = user_id;
         this.user_name = user_name;
-        this.role_id = role_id;
+        //this.role_id = role_id;
         Age = age;
         this.password = password;
     }
@@ -37,13 +35,13 @@ public class User {
         this.user_name = user_name;
     }
 
-    public int getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
-    }
+  //  public int getRole_id() {
+    //    return role_id;
+    //}
+//
+  //  public void setRole_id(int role_id) {
+    //    this.role_id = role_id;
+   // }
 
     public int getAge() {
         return Age;
@@ -63,22 +61,30 @@ public class User {
      * 
      */
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="PERSON_SEQ", sequenceName="PERSON_SEQ",allocationSize=1)
     public int user_id;
 
     /**
      * 
      */
+
+    @Column(name="name")
     public String user_name;
 
+ //   @Column(name = "role")
+    @ManyToOne
+    @JoinColumn(name="role_id", nullable=false)
+     private Roles roles;
     /**
      * 
      */
-    public int role_id;
+ //   public int role_id;
 
     /**
      * 
      */
+    @Column(name="age")
     public int Age;
 
     public String getPassword() {
@@ -90,4 +96,12 @@ public class User {
     }
 
     public String password;
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 }

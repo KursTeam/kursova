@@ -1,5 +1,10 @@
 package com.onlineschool.kursova.Model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
 /**
  * 
  */
@@ -14,6 +19,9 @@ public class Style_of_payment {
     /**
      * 
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="PERSON_SEQ", sequenceName="PERSON_SEQ",allocationSize=1)
     public int pay_id;
 
     /**
