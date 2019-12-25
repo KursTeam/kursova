@@ -11,5 +11,5 @@ import java.util.List;
 public interface userRepository extends CrudRepository<User, Integer>{
     @Override
     List<User> findAll();
-
+   // User create();
     }

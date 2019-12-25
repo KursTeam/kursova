@@ -74,8 +74,8 @@ public class User {
 
  //   @Column(name = "role")
     @ManyToOne
-    @JoinColumn(name="role_id", nullable=false)
-     private Roles roles;
+    @JoinColumn(name="role_id", nullable=true)
+     public Roles roles;
     /**
      * 
      */
