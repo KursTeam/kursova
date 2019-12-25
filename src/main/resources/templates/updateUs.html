@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Age</th>
 
+    </tr>
+    <tr>
+
+
+            <td th:text="${usr.get().getUser_id()}"/>
+            <td th:text="${usr.get().getUser_name()}"/>
+            <td th:text="${usr.get().getRoles().Name}"/>
+            <td th:text="${usr.get().getAge()}"/>
+
+    </tr>
 </body>
 </html>

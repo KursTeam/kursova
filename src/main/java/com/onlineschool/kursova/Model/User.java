@@ -69,7 +69,7 @@ public class User {
      * 
      */
 
-    @Column(name="name")
+    @Column(name="user_name")
     public String user_name;
 
  //   @Column(name = "role")
@@ -103,5 +103,9 @@ public class User {
 
     public void setRoles(Roles roles) {
         this.roles = roles;
+    }
+    public void setRole(String name, int id) {
+        this.roles.Name = name;
+        this.roles.role_id=id;
     }
 }
