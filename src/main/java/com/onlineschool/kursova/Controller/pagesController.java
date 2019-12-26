@@ -41,7 +41,10 @@ public class pagesController {
     public String user() {
         return "user";
     }
-
+    @GetMapping("/order")
+    public String order() {
+        return "UserSubjects";
+    }
     @GetMapping("/about")
     public String about() {
         return "about";
