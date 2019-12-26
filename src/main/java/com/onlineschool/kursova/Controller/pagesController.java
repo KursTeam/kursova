@@ -1,7 +1,9 @@
 package com.onlineschool.kursova.Controller;
 
+import com.onlineschool.kursova.Model.Roles;
 import com.onlineschool.kursova.Model.User;
 //import com.onlineschool.kursova.Service.UserDaoImpl;
+import com.onlineschool.kursova.Repository.roleRepository;
 import com.onlineschool.kursova.Repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,8 @@ public class pagesController {
     @Autowired
     @Resource
     userRepository userService;
-
+    @Autowired
+    roleRepository roleRepository;
     @GetMapping(value = "/")
     public String main() {
         return "index";
@@ -34,6 +37,12 @@ public class pagesController {
 
     @GetMapping("/admin")
     public String admin() {
+//        Roles role=roleRepository.findByName("STUDENT");
+//        userService.save(new User("Bob","12345",28,role));
+//        userService.save(new User("Stas Kozuko","54321",27,role));
+//        userService.save(new User("Andre","123",23,role));
+//        userService.save(new User("Irina","321",31,role));
+
         return "admin";
     }
 
@@ -50,29 +59,4 @@ public class pagesController {
         return "about";
     }
 
-    @GetMapping("/login")
-    public String login() {
-         return "login";
-    }
-    @PostMapping("/login")
-    public String login(Model model) {
-        return "index";
-    }
- /*   @PostMapping("/login")
-            public  String login(@ModelAttribute User user,Model model)
-    {
-        user.user_id=0;
-        List<User> users=userService.findAll();
-        for (User us:users
-             ) {
-            if(us.user_name==user.user_name)   return "index";
-        }
-         {
-            return "login";
-        }
-    }*/
-    @GetMapping("/403")
-    public String error403() {
-        return "/error/403";
-    }
 }

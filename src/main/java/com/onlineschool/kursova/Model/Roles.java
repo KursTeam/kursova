@@ -15,6 +15,9 @@ public class Roles {
      */
     public Roles() {
     }
+    public Roles(String name) {
+        this.name=name;
+    }
     @OneToMany( mappedBy ="roles" ,cascade = CascadeType.ALL)
     private Set<User> users;
     /**
@@ -28,8 +31,8 @@ public class Roles {
     /**
      * 
      */
-    @Column(name = "role_name")
-    public String Name;
+    @Column(name = "name")
+    public String name;
 
     public int getRole_id() {
         return role_id;
@@ -40,10 +43,10 @@ public class Roles {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 }

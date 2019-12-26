@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface userRepository extends CrudRepository<User, Integer>{
 
-
+        User findByName(String name);
 
     @Override
     List<User> findAll();

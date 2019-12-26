@@ -9,12 +9,12 @@ import javax.persistence.*;
 @Entity
 public class User {
 
-    public User(int user_id, String user_name, int role_id, int age,String password) {
-        this.user_id = user_id;
-        this.user_name = user_name;
-        //this.role_id = role_id;
-        Age = age;
+    public User( String name,String password, int age,Roles role) {
+
+        this.name = name;
+        this.age = age;
         this.password = password;
+        this.roles=role;
     }
 
 
@@ -28,11 +28,11 @@ public class User {
     }
 
     public String getUser_name() {
-        return user_name;
+        return name;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.name = user_name;
     }
 
   //  public int getRole_id() {
@@ -44,11 +44,11 @@ public class User {
    // }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public void setAge(int age) {
-        Age = age;
+        this.age = age;
     }
 
     /**
@@ -69,8 +69,8 @@ public class User {
      * 
      */
 
-    @Column(name="user_name")
-    public String user_name;
+    @Column(name="name")
+    public String name;
 
  //   @Column(name = "role")
     @ManyToOne
@@ -85,7 +85,7 @@ public class User {
      * 
      */
     @Column(name="age")
-    public int Age;
+    public int age;
 
     public String getPassword() {
         return password;
@@ -104,8 +104,9 @@ public class User {
     public void setRoles(Roles roles) {
         this.roles = roles;
     }
+
     public void setRole(String name, int id) {
-        this.roles.Name = name;
+        this.roles.name = name;
         this.roles.role_id=id;
     }
 }
