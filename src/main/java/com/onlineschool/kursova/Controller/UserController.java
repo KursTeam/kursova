@@ -1,8 +1,10 @@
 package com.onlineschool.kursova.Controller;
 import javax.annotation.Resource;
 
+import com.onlineschool.kursova.Model.AuthenticationUserInfo;
 import com.onlineschool.kursova.Model.Roles;
 import com.onlineschool.kursova.Model.User;
+import com.onlineschool.kursova.Repository.AuthenticationUserInfoRepository;
 import com.onlineschool.kursova.Repository.roleRepository;
 import com.onlineschool.kursova.Repository.userRepository;
 import com.onlineschool.kursova.Service.RoleDaoImpl;
@@ -23,6 +25,12 @@ public class UserController {
     public List<User> users;
     public List<Roles> roles;
     @Autowired
+    AuthenticationUserInfoRepository userInfoRepository;
+    @Autowired
+    userRepository userRepository;
+    @Autowired
+    roleRepository roleRepository;
+    @Autowired
     @Resource
     userRepository employeeService;
     @Autowired
@@ -31,19 +39,36 @@ public class UserController {
    // @Autowired
    // @Resource
     RoleDaoImpl rolesService;
-    @RequestMapping(value = "/admin/Users", method= RequestMethod.GET)
+    @GetMapping("/reg")
+    public String registration(Model model){
+        model.addAttribute("user",new User());
+        return "reg";
+    }
+    @PostMapping("/reg")
+    public String saveNewUser(@ModelAttribute User newUser,  Model model){
+        model.addAttribute("user",newUser);
+        if(userInfoRepository.findByName(newUser.getUser_name())!=null)return "failed";
+        Roles roles=roleRepository.findByName("STUDENT");
+        newUser.setRoles(roles);
+        AuthenticationUserInfo newUserInfo=new AuthenticationUserInfo();
+        newUserInfo.setName(newUser.getUser_name());
+        newUserInfo.setPassword(newUser.getPassword());
+        newUserInfo.setRole(newUser.getRoles().getName());
+        userRepository.save(newUser);
+        userInfoRepository.save(newUserInfo);
+        return "success";
+    }
+
+    @GetMapping(value = "/admin/Users")
     public String Users(Model model) {
 
-        users=employeeService.findAll();
-     //   roles=rolesService.findAll();
-        for (User usr:users)
+        List<AuthenticationUserInfo> user=(List<AuthenticationUserInfo>) userInfoRepository.findAll();
+        for (AuthenticationUserInfo usr:user)
         {
-         System.out.println(usr.getUser_id()+" "+usr.getUser_name()+" "+usr.getAge()+" "+usr.getRoles().Name);
+         System.out.println(usr.toString());
         }
         List<User>selectedusers;
-
-
-        model.addAttribute("users",users);
+        model.addAttribute("users",user);
 
      //   model.addAttribute("roles",roles);
         return "Users";
@@ -67,7 +92,7 @@ public class UserController {
             usr.setUser_id(user1.getUser_id() + 1);
         }
         else usr.setUser_id(1);
-            for (Roles r:roles) {if(r.Name=="USER")usr.setRole(r.Name,r.role_id);usr.roles=r;}
+            for (Roles r:roles) {if(r.name=="USER")usr.setRole(r.name,r.role_id);usr.roles=r;}
         System.out.println(usr.getUser_id()+" "+usr.getUser_name()+" "+usr.getPassword());
         users.add(usr);
 
@@ -82,7 +107,7 @@ public class UserController {
         Optional<User> user1 = users.stream().filter(x->x.getUser_id()==14).findFirst();
 
 
-            System.out.println(user1.get().getUser_id()+" "+user1.get().getUser_name()+" "+user1.get().getAge()+" "+user1.get().getRoles().Name);
+            System.out.println(user1.get().getUser_id()+" "+user1.get().getUser_name()+" "+user1.get().getAge()+" "+user1.get().getRoles().name);
 
         // roles=rolesService.findAll();
 
