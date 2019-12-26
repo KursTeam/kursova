@@ -31,7 +31,7 @@ public class UserController {
    // @Autowired
    // @Resource
     RoleDaoImpl rolesService;
-    @RequestMapping(value = "/Users", method= RequestMethod.GET)
+    @RequestMapping(value = "/admin/Users", method= RequestMethod.GET)
     public String Users(Model model) {
 
         users=employeeService.findAll();
@@ -48,7 +48,7 @@ public class UserController {
      //   model.addAttribute("roles",roles);
         return "Users";
     }
-    @GetMapping(value = "/createUs")
+    @GetMapping(value = "/admin/createUs")
     public String getcreateEmployee( User usr,Model model) {
         users=employeeService.findAll();
        // roles=rolesService.findAll();
@@ -57,7 +57,7 @@ public class UserController {
 
       return "createUs";
   }
-    @PostMapping(value = "/createUs")
+    @PostMapping(value = "/admin/createUs")
     public String postcreateEmployee(Model model,@ModelAttribute User usr) {
         roles=roleService.findAll();
         if(users.size()!=0) {
@@ -77,7 +77,7 @@ public class UserController {
         return "Users";
     }
 
-    @GetMapping(value = "/updateUs")
+    @GetMapping(value = "/admin/updateUs")
     public String editUser(User usr, Model model) {
         Optional<User> user1 = users.stream().filter(x->x.getUser_id()==14).findFirst();
 

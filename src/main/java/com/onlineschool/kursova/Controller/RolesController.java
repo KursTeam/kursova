@@ -34,18 +34,18 @@ public class RolesController {
         return "roles";
     }
 
-    @PostMapping(value = "/createrole")
+    @PostMapping(value = "/admin/createrole")
     public void createrole(@RequestBody Roles emp) {
         rolesService.insertRole(emp);
     }
-    @PutMapping(value = "/updaterole")
+    @PutMapping(value = "/admin/updaterole")
     public void updaterole(@RequestBody Roles emp) {
         rolesService.updateRole(emp);
     }
-    @PutMapping(value = "/executeuprole")
+    @PutMapping(value = "/admin/executeuprole")
     public void executeuprole(@RequestBody Roles emp) { rolesService.executeUpdateRole(emp);
     }
-    @DeleteMapping(value = "/deleterole")
+    @DeleteMapping(value = "/admin/deleterole")
     public void deleterole(@RequestBody Roles emp) {
         rolesService.deleteRole(emp);
     }
