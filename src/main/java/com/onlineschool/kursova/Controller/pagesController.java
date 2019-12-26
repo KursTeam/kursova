@@ -54,6 +54,10 @@ public class pagesController {
     public String login() {
          return "login";
     }
+    @GetMapping("/adminindex")
+    public String adminindex() {
+        return "adminindex";
+    }
     @PostMapping("/login")
     public String login(Model model) {
         return "index";
