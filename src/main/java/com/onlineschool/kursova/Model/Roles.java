@@ -15,7 +15,7 @@ public class Roles {
      */
     public Roles() {
     }
-    @OneToMany(mappedBy = "roles",cascade = CascadeType.ALL)
+    @OneToMany( mappedBy ="roles" ,cascade = CascadeType.ALL)
     private Set<User> users;
     /**
      * 
