@@ -21,8 +21,12 @@
         <td th:text="${usr.user_id}"/>
         <td th:text="${usr.name}"/>
         <td th:text="${usr.role}"/>
-        <td><a href="/admin/updateUs/${usr.user_id}">Edit</a></td>
-        <td><a href="/admin/deleteUs/${usr.user_id}">Delete</a></td>
+        <td>
+            <form th:action="@{/admin/updateUs/{user_id}(user_id=${usr.user_id})}"><input type="submit" value="Edit"></form>
+        </td>
+        <td>
+            <form th:action="@{/admin/deleteUs/{user_id}(user_id=${usr.user_id})}"><input type="submit"value="Delete"></form>
+        </td>
     </tr>
     </a>
 </table>

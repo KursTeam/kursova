@@ -33,14 +33,17 @@ public class pagesController {
     @Resource
     userRepository userService;
     @Autowired
+    @Resource
     roleRepository roleRepository;
     @Autowired
+    @Resource
     SubjectRepository subjectRepository;
     @GetMapping(value = "/")
     public String main(Model model) {
         List<Subject> allSub=(List<Subject>) subjectRepository.findAll();
         allSub=allSub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
         model.addAttribute("sub",allSub);
+        model.addAttribute("show",allSub);
         return "index";
     }
     @GetMapping(value = "/index")
@@ -48,7 +51,7 @@ public class pagesController {
         return "index";
     }
 
-    @GetMapping(value = "/admin")
+    /*@GetMapping(value = "/admin")
     public String admin() {
 //        Roles role=roleRepository.findByName("STUDENT");
 //        userService.save(new User("Bob","12345",28,role));
@@ -58,7 +61,7 @@ public class pagesController {
 
         return "admin";
     }
-
+*/
     @GetMapping(value = "/user")
     public String user() {
         return "user";
@@ -79,6 +82,14 @@ public class pagesController {
 //        subjectRepository.save(new Subject("Fishes",new Date()));
 
         return "add";
+    }
+    @GetMapping("/admin")
+    public String adminindex(){
+//        subjectRepository.save(new Subject("Java",new Date()));
+//        subjectRepository.save(new Subject("History",new Date()));
+//        subjectRepository.save(new Subject("Fishes",new Date()));
+
+        return "adminindex";
     }
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

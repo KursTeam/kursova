@@ -110,25 +110,38 @@ public class UserController {
         userInfoRepository.save(usr);
         employeeService.save(u);
         model.addAttribute("usr",usr);
-        return "Users";
+        return "redirect:/admin/Users";
     }
 
     @GetMapping(value = "/admin/updateUs/{user_id}")
-    public String editUser(@PathVariable int user_id, Model model) {
-        Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
-       // AuthenticationUserInfo user12=userInfoRepository.
+    public String editUser(@PathVariable("user_id") int user_id, Model model) {
+      //  Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
+        user=(List<AuthenticationUserInfo>) userInfoRepository.findAll();
+        AuthenticationUserInfo user1;
+        for (AuthenticationUserInfo u:user)
+        {
+            if(u.getUser_id()==user_id){user1=u;user1.setRole("STUDENT");model.addAttribute("usr",user1);  System.out.println(user1.getUser_id()+" "+user1.getName()+ " "+user1.getRole()+" "+user1.getPassword());userInfoRepository.save(user1);}
+        }
+      //  AuthenticationUserInfo user12=userInfoRepository
 
-          //  System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
+
 
         // roles=rolesService.findAll();
 
-        model.addAttribute("usr",user1);
+//
 
         return "updateUs";
     }
-    @GetMapping(value = "/admin/deleteUs/{user_id}")
+    @PostMapping(value="/admin/updateUs/{user_id}")
+    public String sendedit(AuthenticationUserInfo usr, Model model)
+    {
+        usr.setRole("STUDENT");
+        userInfoRepository.save(usr);
+        return "redirect:/admin/Users";
+    }
+    @GetMapping(value = "/admin/deleteUs}")
     public String deleteUs(@PathVariable int user_id, Model model) {
-        //<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
+        Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
         // AuthenticationUserInfo user12=userInfoRepository.
        userInfoRepository.deleteById(user_id);
 
@@ -136,9 +149,9 @@ public class UserController {
 
         // roles=rolesService.findAll();
 
-       // model.addAttribute("usr",user1);
+        model.addAttribute("usr",user1);
 
-        return "Users";
+        return "redirect:/admin/Users";
     }
     /*
     @PutMapping(value = "/executeUpdateUs")
