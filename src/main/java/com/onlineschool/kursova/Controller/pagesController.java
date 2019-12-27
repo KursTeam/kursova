@@ -10,10 +10,7 @@ import com.onlineschool.kursova.Repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -39,10 +36,11 @@ public class pagesController {
     @Resource
     SubjectRepository subjectRepository;
     @GetMapping(value = "/")
-    public String main(Model model) {
+    public String main( Model model) {
+        List<Subject> Sub=(List<Subject>) subjectRepository.findAll();
+        Sub=Sub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
         List<Subject> allSub=(List<Subject>) subjectRepository.findAll();
-        allSub=allSub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
-        model.addAttribute("sub",allSub);
+        model.addAttribute("sub",Sub);
         model.addAttribute("show",allSub);
         return "index";
     }
@@ -50,7 +48,16 @@ public class pagesController {
     public String index() {
         return "index";
     }
-
+    @GetMapping(value = "/showSortSubj/{subj_id}")
+    public String showSortSubject(@PathVariable("subj_id") int subj_id,Model model){
+        Subject sub=subjectRepository.findById(subj_id).get();
+        List<Subject> subjectByName=subjectRepository.findAllByName(sub.getName());
+        List<Subject> Sub=(List<Subject>) subjectRepository.findAll();
+        Sub=Sub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
+        model.addAttribute("show",subjectByName);
+        model.addAttribute("sub",Sub);
+        return "index";
+    }
     /*@GetMapping(value = "/admin")
     public String admin() {
 //        Roles role=roleRepository.findByName("STUDENT");

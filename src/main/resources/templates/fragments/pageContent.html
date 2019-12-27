@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,7 +12,7 @@
         <th hidden>Id</th>
         <th>Предмет</th>
         <th>Дата</th>
-        <th>Присоединиться</th>
+        <th sec:authorize="isAuthenticated()">Присоединиться</th>
     </tr>
 
     <tr th:each="sh : ${show}">
@@ -21,7 +21,7 @@
         <td th:text="${sh.sub_id}" hidden/>
         <td th:text="${sh.name}"/>
         <td th:text="${sh.date}"/>
-        <td><a href="/admin/order/${sh.sub_id}">Add</a></td>
+        <td sec:authorize="isAuthenticated()"><a href="/admin/order/${sh.sub_id}">Add</a></td>
 
     </tr>
 </table>

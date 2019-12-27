@@ -17,8 +17,8 @@
     </p>
     <div class="collapse" id="collapseExample">
         <div th:each="subj : ${sub}">
-            <div th:text="${subj.name}" class="card card-body">
-
+<!--            <div th:text="${subj.name}" class="card card-body">-->
+                <a th:href="@{/showSortSubj/{subj_id}(subj_id=${subj.sub_id})}" class="nav-link card card-body" th:text="${subj.name}"></a>
             </div>
         </div>
     </div>
