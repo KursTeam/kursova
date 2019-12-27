@@ -5,7 +5,7 @@
 <body>
 
 <a href="/admin/createUs" style="color: white;"><button class="col-lg-12 col-md-12 col-sm-12 bg-primary">Add new user </button></a>
-<table style="border: black solid 1px;" class="col-lg-12 col-md-12 col-sm-12">
+<table border="2" class="col-lg-12 col-md-12 col-sm-12">
     <tr>
         <th>Id</th>
         <th>Name</th>
@@ -21,8 +21,8 @@
         <td th:text="${usr.user_id}"/>
         <td th:text="${usr.name}"/>
         <td th:text="${usr.role}"/>
-        <td><a href="/updateUs/usr.getUser_id()">Edit</a></td>
-        <td><a href="/deleteUs/${usr.user_id}">Delete</a></td>
+        <td><a href="/admin/updateUs/${usr.user_id}">Edit</a></td>
+        <td><a href="/admin/deleteUs/${usr.user_id}">Delete</a></td>
     </tr>
     </a>
 </table>

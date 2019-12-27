@@ -110,12 +110,12 @@ public class UserController {
         return "Users";
     }
 
-    @GetMapping(value = "/admin/updateUs")
+    @GetMapping(value = "/admin/updateUs/{usr.user_id}")
     public String editUser(User usr, Model model) {
         Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==usr.getUser_id()).findFirst();
 
 
-            System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
+          //  System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
 
         // roles=rolesService.findAll();
 
