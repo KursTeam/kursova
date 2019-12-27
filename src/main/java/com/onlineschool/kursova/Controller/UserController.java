@@ -110,10 +110,10 @@ public class UserController {
         return "Users";
     }
 
-    @GetMapping(value = "/admin/updateUs/{usr.user_id}")
-    public String editUser(User usr, Model model) {
-        Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==usr.getUser_id()).findFirst();
-
+    @GetMapping(value = "/admin/updateUs/{user_id}")
+    public String editUser(@PathVariable int user_id, Model model) {
+        Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
+       // AuthenticationUserInfo user12=userInfoRepository.
 
           //  System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
 
@@ -122,6 +122,20 @@ public class UserController {
         model.addAttribute("usr",user1);
 
         return "updateUs";
+    }
+    @GetMapping(value = "/admin/deleteUs/{user_id}")
+    public String deleteUs(@PathVariable int user_id, Model model) {
+        //<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==user_id).findFirst();
+        // AuthenticationUserInfo user12=userInfoRepository.
+       userInfoRepository.deleteById(user_id);
+
+        //  System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
+
+        // roles=rolesService.findAll();
+
+       // model.addAttribute("usr",user1);
+
+        return "Users";
     }
     /*
     @PutMapping(value = "/executeUpdateUs")
