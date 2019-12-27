@@ -21,7 +21,7 @@
         <td th:text="${sh.sub_id}" hidden/>
         <td th:text="${sh.name}"/>
         <td th:text="${sh.date}"/>
-        <td sec:authorize="isAuthenticated()"><a href="/admin/order/${sh.sub_id}">Add</a></td>
+        <td sec:authorize="isAuthenticated()"><a th:href="@{/join/{subj_id}(subj_id=${sh.sub_id})}">Join</a></td>
 
     </tr>
 </table>

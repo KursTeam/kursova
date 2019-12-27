@@ -28,6 +28,9 @@ public class User {
     @Column(name="age")
     public int age;
 
+    @ManyToMany(mappedBy = "user")
+    private Set<Subject> subjects = new HashSet<>();
+
     public String getName() {
         return name;
     }
@@ -43,9 +46,11 @@ public class User {
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
+    public void setSubject(Subject subjects) {
+        this.subjects.add(subjects);
+    }
 
-    @ManyToMany(mappedBy = "user")
-    private Set<Subject> subjects = new HashSet<>();
+
 
     public User( String name,String password, int age,Roles role) {
 
@@ -96,6 +101,18 @@ public class User {
 
     public void setRoles(Roles roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", name='" + name + '\'' +
+                ", roles=" + roles +
+                ", age=" + age +
+                ", subjects=" + subjects +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public void setRole(String name, int id) {

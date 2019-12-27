@@ -68,4 +68,16 @@ public class Subject {
     public void setUser(Set<User> user) {
         this.user = user;
     }
+    public void setUseres(User user){
+        this.user.add(user);
+    }
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "sub_id=" + sub_id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                '}';
+    }
 }
