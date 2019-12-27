@@ -20,13 +20,14 @@ import java.util.Optional;
 
 
 @Controller
-
 public class UserController {
     public List<User> users;
     public List<Roles> roles;
+    List<AuthenticationUserInfo> user;
     @Autowired
     AuthenticationUserInfoRepository userInfoRepository;
     @Autowired
+    @Resource
     userRepository userRepository;
     @Autowired
     roleRepository roleRepository;
@@ -36,15 +37,15 @@ public class UserController {
     @Autowired
     @Resource
     roleRepository roleService;
-   // @Autowired
-   // @Resource
+    @Autowired
+    @Resource
     RoleDaoImpl rolesService;
-    @GetMapping("/reg")
+    @GetMapping(value = "/reg")
     public String registration(Model model){
         model.addAttribute("user",new User());
         return "reg";
     }
-    @PostMapping("/reg")
+    @PostMapping(value="/reg")
     public String saveNewUser(@ModelAttribute User newUser,  Model model){
         model.addAttribute("user",newUser);
         if(userInfoRepository.findByName(newUser.getUser_name())!=null)return "failed";
@@ -61,8 +62,8 @@ public class UserController {
 
     @GetMapping(value = "/admin/Users")
     public String Users(Model model) {
-
-        List<AuthenticationUserInfo> user=(List<AuthenticationUserInfo>) userInfoRepository.findAll();
+        users=employeeService.findAll();
+        user=(List<AuthenticationUserInfo>) userInfoRepository.findAll();
         for (AuthenticationUserInfo usr:user)
         {
          System.out.println(usr.toString());
@@ -73,30 +74,30 @@ public class UserController {
      //   model.addAttribute("roles",roles);
         return "Users";
     }
-    @GetMapping(value = "/admin/createUs")
-    public String getcreateEmployee( User usr,Model model) {
+    @GetMapping("/admin/createUs")
+    public String getcreateEmployee(Model model) {
         users=employeeService.findAll();
-       // roles=rolesService.findAll();
-        usr=new User();
+        roles=rolesService.findAll();
+      AuthenticationUserInfo  usr=new AuthenticationUserInfo();
        model.addAttribute("usr",usr);
 
       return "createUs";
   }
     @PostMapping(value = "/admin/createUs")
-    public String postcreateEmployee(Model model,@ModelAttribute User usr) {
+    public String postcreateEmployee(Model model,@ModelAttribute AuthenticationUserInfo usr) {
         roles=roleService.findAll();
-        if(users.size()!=0) {
-            User user1 = users.stream()
-                    .max(Comparator.comparingInt(User::getUser_id))
+        if(user.size()!=0) {
+            AuthenticationUserInfo user1 = user.stream()
+                    .max(Comparator.comparingInt(AuthenticationUserInfo::getUser_id))
                     .get();
             usr.setUser_id(user1.getUser_id() + 1);
         }
         else usr.setUser_id(1);
-            for (Roles r:roles) {if(r.name=="USER")usr.setRole(r.name,r.role_id);usr.roles=r;}
-        System.out.println(usr.getUser_id()+" "+usr.getUser_name()+" "+usr.getPassword());
-        users.add(usr);
+            usr.setRole("USER");
+        System.out.println(usr.getUser_id()+" "+usr.getName()+" "+usr.getPassword());
+        user.add(usr);
 
-        employeeService.save(usr);
+        userInfoRepository.save(usr);
 
         model.addAttribute("usr",usr);
         return "Users";
@@ -104,10 +105,10 @@ public class UserController {
 
     @GetMapping(value = "/admin/updateUs")
     public String editUser(User usr, Model model) {
-        Optional<User> user1 = users.stream().filter(x->x.getUser_id()==14).findFirst();
+        Optional<AuthenticationUserInfo> user1 = user.stream().filter(x->x.getUser_id()==usr.getUser_id()).findFirst();
 
 
-            System.out.println(user1.get().getUser_id()+" "+user1.get().getUser_name()+" "+user1.get().getAge()+" "+user1.get().getRoles().name);
+            System.out.println(user1.get().getUser_id()+" "+user1.get().getName()+ " "+user1.get().getRole());
 
         // roles=rolesService.findAll();
 

@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
     <title>Title</title>
 </head>
 <body>
 <div class="container col-sm-12 col-md-12 col-lg-12 justify-content-center">
     <div class="row">
-<form action="#" th:action="@{/admin/createUs}" th:object="${usr}" method="post" class="">
-    <p>Name: <input class="bg-primary"type="text" th:field="*{user_name}"/></p>
-    <p>Password: <input class="bg-primary"type="password" th:field="*{password}"/></p>
-    <p>Age: <input class="bg-primary"type="text" th:field="*{Age}"/></p>
+
+        <form th:action="@{/admin/createUs}" th:object="${usr}" method="post" class="">
+    <p>Name: <input class=""type="text" th:field="*{name}"/></p>
+    <p>Password: <input class=""type="password" th:field="*{password}"/></p>
+
 
     <p><input type="submit" value="Submit" class="bg-primary"/></p>
 </form>

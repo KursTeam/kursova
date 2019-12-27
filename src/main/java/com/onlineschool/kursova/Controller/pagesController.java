@@ -35,7 +35,7 @@ public class pagesController {
         return "index";
     }
 
-    @GetMapping("/admin")
+    @GetMapping(value = "/admin")
     public String admin() {
 //        Roles role=roleRepository.findByName("STUDENT");
 //        userService.save(new User("Bob","12345",28,role));
@@ -46,17 +46,18 @@ public class pagesController {
         return "admin";
     }
 
-    @GetMapping("/user")
+    @GetMapping(value = "/user")
     public String user() {
         return "user";
     }
-    @GetMapping("/order")
+    @GetMapping(value = "/userSubjects")
     public String order() {
         return "UserSubjects";
     }
-    @GetMapping("/about")
+    @GetMapping(value = "/about")
     public String about() {
         return "about";
     }
+
 
 }
