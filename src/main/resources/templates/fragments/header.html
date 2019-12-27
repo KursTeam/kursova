@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/">Главная страница<span class="sr-only">(current)</span></a>
                 </li>
                 <li sec:authorize="isAuthenticated()"  class="nav-item">
-                    <a class="nav-link " href="#">Мои уроки</a>
+                    <a class="nav-link " href="/subjects">Мои уроки</a>
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="nav-item float-md-right">
                     <a class="nav-link " href="/login">Войти</a>
@@ -33,7 +33,7 @@
                 </li>
 
                 <li sec:authorize="isAuthenticated()" class="nav-item float-md-right">
-                    <a href="@{/admin/updateUs/{user_id}(user_id=${usr.user_id})}"> <span sec:authentication="name" class="nav-link float-md-right"> </span></a>
+                    <a href="#"> <span sec:authentication="name" class="nav-link float-md-right"> </span></a>
                 </li>
 
                 <li sec:authorize="isAuthenticated()" class="nav-item float-md-right">
