@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 @Controller
 @RequestMapping("/")
 public class pagesController {
+    List<Subject> Sub;
     @Autowired
     userRepository userService;
     @Autowired
@@ -37,12 +38,21 @@ public class pagesController {
     SubjectRepository subjectRepository;
     @GetMapping(value = "/")
     public String main( Model model) {
-        List<Subject> Sub=(List<Subject>) subjectRepository.findAll();
+         Sub=(List<Subject>) subjectRepository.findAll();
         Sub=Sub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
         List<Subject> allSub=(List<Subject>) subjectRepository.findAll();
         model.addAttribute("sub",Sub);
         model.addAttribute("show",allSub);
         return "index";
+    }
+
+    @GetMapping(value="/subjects")
+            public String subjects(Model model)
+    {
+        Sub=(List<Subject>) subjectRepository.findAll();
+        Sub=Sub.stream().filter(distinctByKey(Subject::getUser)).collect(Collectors.toList());
+        model.addAttribute("sub",Sub);
+        return "subjects";
     }
     @GetMapping(value = "/index")
     public String index() {

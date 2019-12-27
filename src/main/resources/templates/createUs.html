@@ -8,16 +8,33 @@
     <title>Title</title>
 </head>
 <body>
-<div align="center" class="container col-sm-12 col-md-12 col-lg-12 justify-content-center">
+<div class="container">
     <div class="row">
-
         <form th:action="@{/admin/createUs}" th:object="${usr}" method="post" class="">
-    <p>Name: <input class=""type="text" th:field="*{name}"/></p>
-    <p>Password: <input class=""type="password" th:field="*{password}"/></p>
+           <div class="form-group row">
+               <label for="inputName" class="col-sm-2 col-form-label col-md-4">Name</label>
+               <div class="col-sm-10 col-md-8">
+                   <input type="text" class="form-control" id="inputName"  th:field="*{name}">
+               </div>
+           </div>
+            <div class="form-group row">
+                <label for="inputPassword" class="col-sm-2 col-form-label col-md-4">Password</label>
+                <div class="col-sm-10 col-md-8">
+                    <input type="password" class="form-control" id="inputPassword"  th:field="*{password}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputAge" class="col-sm-2 col-form-label col-md-4">Age</label>
+                <div class="col-sm-10 col-md-8">
+                    <input type="text" class="form-control" id="inputAge" th:field="*{age}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
 
-            <p>Age: <input class=""type="text" th:field="*{age}"/></p>
-
-    <p><input type="submit" value="Submit" class="bg-primary"/></p>
 </form>
     </div>
 </div>

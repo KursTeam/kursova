@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<header th:replace="fragments/header :: header"/>
+<body>
+
+<div class="container-fluid">
+    <nav th:replace="fragments/header :: menu"/>
+</div>
+<div class="container">
+    <div class="row">
+<table border="2" class="justify-content-center">
+    <tr>
+        <th hidden>Id</th>
+        <th>Предмет</th>
+        <th>Дата</th>
+
+    </tr>
+
+    <tr th:each="sh : ${sub}">
+
+
+        <td th:text="${sh.sub_id}" hidden/>
+        <td th:text="${sh.name}"/>
+        <td th:text="${sh.date}"/>
+
+
+    </tr>
+</table>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
