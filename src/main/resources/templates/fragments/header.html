@@ -9,7 +9,7 @@
 </head>
 <body>
 <div>
-    <nav th:fragment="menu" class="navbar fixed-top navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
+    <nav th:fragment="menu" class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Онлайн школа</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,15 +36,18 @@
 
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="nav-item float-md-right">
-                    <a class="nav-link " href="/reg">Регистрация</a>
+                    <a class="nav-link " href="/admin/createUs">Регистрация</a>
                 </li>
 
                 <li sec:authorize="isAuthenticated()" class="nav-item float-md-right">
-                    <span sec:authentication="name" class="nav-item float-md-right"> </span>
+                    <span sec:authentication="name" class="nav-link float-md-right"> </span>
                 </li>
 
                 <li sec:authorize="isAuthenticated()" class="nav-item float-md-right">
                     <a class="nav-link " href="/login">Выйти</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item float-md-right">
+                    <a class="nav-link " href="/admin/Users">Редактировать</a>
                 </li>
             </ul>
         </div>
