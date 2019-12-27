@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<div th:fragment="leftMenu" >
+
+    <p>
+        <button class="btn btn-primary  d-sm-flex justify-content-center" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Список предоставляемых предметов
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div th:each="subj : ${sub}">
+            <div th:text="${subj.name}" class="card card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,8 +1,10 @@
 package com.onlineschool.kursova.Controller;
 
 import com.onlineschool.kursova.Model.Roles;
+import com.onlineschool.kursova.Model.Subject;
 import com.onlineschool.kursova.Model.User;
 //import com.onlineschool.kursova.Service.UserDaoImpl;
+import com.onlineschool.kursova.Repository.SubjectRepository;
 import com.onlineschool.kursova.Repository.roleRepository;
 import com.onlineschool.kursova.Repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -26,8 +34,13 @@ public class pagesController {
     userRepository userService;
     @Autowired
     roleRepository roleRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
     @GetMapping(value = "/")
-    public String main() {
+    public String main(Model model) {
+        List<Subject> allSub=(List<Subject>) subjectRepository.findAll();
+        allSub=allSub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
+        model.addAttribute("sub",allSub);
         return "index";
     }
     @GetMapping(value = "/index")
@@ -59,5 +72,17 @@ public class pagesController {
         return "about";
     }
 
+    @GetMapping("/add")
+    public String add(){
+//        subjectRepository.save(new Subject("Java",new Date()));
+//        subjectRepository.save(new Subject("History",new Date()));
+//        subjectRepository.save(new Subject("Fishes",new Date()));
 
+        return "add";
+    }
+
+    private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 }

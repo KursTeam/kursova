@@ -2,6 +2,8 @@ package com.onlineschool.kursova.Model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -10,32 +12,30 @@ import java.util.Date;
 @Table(name="subjects")
 public class Subject {
 
-    /**
-     * Default constructor
-     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="PERSON_SEQ", sequenceName="PERSON_SEQ",allocationSize=1)
+    public int sub_id;
+
+    public String name;
+
+    public Date date;
+
+    @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "Subject_User",
+            joinColumns = { @JoinColumn(name = "subjecr_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    public Set<User> user= new HashSet<>();
+
     public Subject() {
     }
 
-    /**
-     * 
-     */
-    @Id
-    public int sub_id;
-
-    /**
-     * 
-     */
-    public String Name;
-
-    /**
-     * 
-     */
-    public Date Date;
-
-    /**
-     * 
-     */
-    public int group_id;
+    public Subject(String name, Date date) {
+        this.name=name;
+        this.date=date;
+    }
 
     public int getSub_id() {
         return sub_id;
@@ -46,26 +46,26 @@ public class Subject {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public java.util.Date getDate() {
-        return Date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getGroup_id() {
-        return group_id;
+    public Set<User> getUser() {
+        return user;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
+    public void setUser(Set<User> user) {
+        this.user = user;
     }
 }
