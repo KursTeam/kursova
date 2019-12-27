@@ -5,4 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface AuthenticationUserInfoRepository extends CrudRepository<AuthenticationUserInfo, Integer> {
     AuthenticationUserInfo findByName(String name);
+
+    @Override
+    void deleteById(Integer integer);
 }
