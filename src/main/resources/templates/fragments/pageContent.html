@@ -8,7 +8,22 @@
 
 <div th:fragment="content">
 
+    <tr>
+        <th hidden>Id</th>
+        <th>Предмет</th>
+        <th>Дата</th>
+        <th>Присоединиться</th>
+    </tr>
 
+    <tr th:each="sh : ${show}">
+
+
+        <td th:text="${sh.sub_id}" hidden/>
+        <td th:text="${sh.name}"/>
+        <td th:text="${sh.date}"/>
+        <td><a href="/admin/order/${sh.sub_id}">Add</a></td>
+
+    </tr>
 </div>
 
 </body>
