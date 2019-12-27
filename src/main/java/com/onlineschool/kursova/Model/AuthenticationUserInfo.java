@@ -14,7 +14,7 @@ public class AuthenticationUserInfo {
     private String name;
     private String password;
     private String role;
-
+    private int age;
     public AuthenticationUserInfo() {
     }
     public AuthenticationUserInfo(String name, String password, String role) {
@@ -30,6 +30,7 @@ public class AuthenticationUserInfo {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", age='" + age + '\'' +
                 '}';
     }
 
@@ -66,4 +67,11 @@ public class AuthenticationUserInfo {
     }
 
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }

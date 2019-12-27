@@ -86,19 +86,26 @@ public class UserController {
     @PostMapping(value = "/admin/createUs")
     public String postcreateEmployee(Model model,@ModelAttribute AuthenticationUserInfo usr) {
         roles=roleService.findAll();
+        /*
         if(user.size()!=0) {
             AuthenticationUserInfo user1 = user.stream()
                     .max(Comparator.comparingInt(AuthenticationUserInfo::getUser_id))
                     .get();
             usr.setUser_id(user1.getUser_id() + 1);
         }
-        else usr.setUser_id(1);
-            usr.setRole("USER");
+        else usr.setUser_id(1);*/
+            usr.setRole("STUDENT");
+            User u=new User();
+            u.setUser_id(usr.getUser_id());
+            u.setAge(usr.getAge());
+            u.setUser_name(usr.getName());
+           // u.roles.name="STUDENT";
+            u.setPassword(usr.getPassword());
         System.out.println(usr.getUser_id()+" "+usr.getName()+" "+usr.getPassword());
         user.add(usr);
-
+        users.add(u);
         userInfoRepository.save(usr);
-
+        employeeService.save(u);
         model.addAttribute("usr",usr);
         return "Users";
     }
