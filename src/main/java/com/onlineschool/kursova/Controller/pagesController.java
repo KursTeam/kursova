@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,6 @@ import java.util.stream.Stream;
 public class pagesController {
     List<Subject> Sub;
     @Autowired
-    @Resource
     userRepository userService;
     @Autowired
     @Resource
@@ -79,6 +79,26 @@ public class pagesController {
         model.addAttribute("sub",Sub);
         return "index";
     }
+    @GetMapping(value = "/join/{subj_id}")
+    public  String join(@PathVariable("subj_id") int subj_id, Model model, Principal principal){
+        Subject joinSubject=subjectRepository.findById(subj_id).get();
+        System.out.println("Subject find");
+        User user=userService.findByName(principal.getName());
+        System.out.println("User find");
+        user.setSubject(joinSubject);
+        System.out.println("User add subject");
+        userService.save(user);
+
+        System.out.println("User save");
+        List<Subject> Sub=(List<Subject>) subjectRepository.findAll();
+        Sub=Sub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
+        List<Subject> allSub=subjectRepository.findAllByUserIsNotContaining(user);
+
+        model.addAttribute("sub",Sub);
+        model.addAttribute("show",allSub);
+
+        return "index";
+    }
     /*@GetMapping(value = "/admin")
     public String admin() {
 //        Roles role=roleRepository.findByName("STUDENT");
@@ -105,9 +125,9 @@ public class pagesController {
 
     @GetMapping("/add")
     public String add(){
-//        subjectRepository.save(new Subject("Java",new Date()));
-//        subjectRepository.save(new Subject("History",new Date()));
-//        subjectRepository.save(new Subject("Fishes",new Date()));
+//        subjectRepository.save(new Subject("Painting",new Date()));
+//        subjectRepository.save(new Subject("Cheese Maker",new Date()));
+//        subjectRepository.save(new Subject("Hunting",new Date()));
 
         return "add";
     }
