@@ -50,7 +50,18 @@ public class pagesController {
             public String subjects(Model model)
     {
         Sub=(List<Subject>) subjectRepository.findAll();
+        for (Subject s:Sub)
+        {
+            System.out.println(s.sub_id+" "+s.name+" "+s.user+" "+s.date);
+        }
         Sub=Sub.stream().filter(distinctByKey(Subject::getUser)).collect(Collectors.toList());
+
+        System.out.println();
+        for (Subject s:Sub)
+        {
+        System.out.println(s.sub_id+" "+s.name+" "+s.user+" "+s.date);
+        }
+
         model.addAttribute("sub",Sub);
         return "subjects";
     }
