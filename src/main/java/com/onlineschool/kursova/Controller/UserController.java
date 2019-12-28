@@ -89,6 +89,8 @@ public class UserController {
     @PostMapping(value = "/admin/createUs")
     public String postcreateEmployee(Model model,@ModelAttribute AuthenticationUserInfo usr) {
         roles=roleService.findAll();
+        user=(List<AuthenticationUserInfo>) userInfoRepository.findAll();
+        users=employeeService.findAll();
         /*
         if(user.size()!=0) {
             AuthenticationUserInfo user1 = user.stream()

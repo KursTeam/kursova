@@ -47,20 +47,15 @@ public class pagesController {
     }
 
     @GetMapping(value="/subjects")
-            public String subjects(Model model)
+            public String subjects(Model model,Principal principal)
     {
-        Sub=(List<Subject>) subjectRepository.findAll();
-        for (Subject s:Sub)
-        {
-            System.out.println(s.sub_id+" "+s.name+" "+s.user+" "+s.date);
-        }
-        Sub=Sub.stream().filter(distinctByKey(Subject::getUser)).collect(Collectors.toList());
+        User user=userService.findByName(principal.getName());
+        Sub=(List<Subject>) subjectRepository.findAllByUser(user);
+
+        //Sub=Sub.stream().filter(distinctByKey(Subject::getUser)).collect(Collectors.toList());
 
         System.out.println();
-        for (Subject s:Sub)
-        {
-        System.out.println(s.sub_id+" "+s.name+" "+s.user+" "+s.date);
-        }
+
 
         model.addAttribute("sub",Sub);
         return "subjects";
@@ -85,11 +80,11 @@ public class pagesController {
         System.out.println("Subject find");
         User user=userService.findByName(principal.getName());
         System.out.println("User find");
-        user.setSubject(joinSubject);
-        System.out.println("User add subject");
-        userService.save(user);
 
-        System.out.println("User save");
+        System.out.println("User add subject");
+        joinSubject.setUseres(user);
+        subjectRepository.save(joinSubject);
+
         List<Subject> Sub=(List<Subject>) subjectRepository.findAll();
         Sub=Sub.stream().filter(distinctByKey(Subject::getName)).collect(Collectors.toList());
         List<Subject> allSub=subjectRepository.findAllByUserIsNotContaining(user);

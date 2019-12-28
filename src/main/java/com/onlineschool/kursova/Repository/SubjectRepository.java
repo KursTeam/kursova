@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface SubjectRepository extends CrudRepository<Subject, Integer> {
     List<Subject> findAllByName(String name);
-
+        List<Subject>findAllByUser(User user);
     List<Subject> findAllByUserIsNotContaining(User user);
 }
